@@ -1,4 +1,4 @@
-# Mushroom Classifier
+# Mushroom Classification with Streamlit
 
 ## Overview
 
