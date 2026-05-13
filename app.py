@@ -141,14 +141,5 @@ def main():
             st.write("F1 Score:", round(f1_score(y_test, y_pred, labels=class_names), 3))
             plot_metrics(metrics)
 
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     main()

@@ -1,20 +1,21 @@
-# Machine Learning with Streamlit
+# Mushroom Classifier
 
 ## Overview
-I followed the Coursera course `Build a Machine Learning Web App with Streamlit and Python`.
 
-This project documents my machine learning journey, where I explored three models: 
-1. Support Vector Machine (SVM),
-2. Logistic Regression, and
-3. Random Forest.
+This project was developed by following the Coursera course `Build a Machine Learning Web App with Streamlit and Python`, with additional features and improvements implemented independently.
 
-I also experimented with deploying the application on Streamlit Cloud.
+The application focuses on mushroom classification, where machine learning models are used to predict whether a mushroom is edible or poisonous based on its characteristics. The project includes the implementation and comparison of three classification models:
 
-The main goal of this project was to study the end-to-end machine learning workflow and learn how to use and deploy trained models.
-Additionally, I implemented extra features on my own, allowing users to input custom mushroom data and test the model predictions interactively.
+1. Support Vector Machine (SVM)
+2. Logistic Regression
+3. Random Forest
+
+The web application was built using Streamlit and deployed on Streamlit Cloud to provide an interactive user experience.
+
+In addition to the original course project, I added custom features that allow users to manually input mushroom characteristics and test predictions directly through the application. The project demonstrates an end-to-end machine learning workflow, including data preprocessing, model training, evaluation, visualization, and deployment.
 
 ## Dataset
 - https://archive.ics.uci.edu/dataset/73/mushroom
 
 ## Deployment
-- Streamlit:
+- Streamlit: https://mushroom-classifiers.streamlit.app/
