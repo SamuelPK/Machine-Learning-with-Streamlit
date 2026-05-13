@@ -8,6 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay, PrecisionRecallDisplay
+import matplotlib.pyplot as plt
 
 def main():
     st.title("Mushroom Classification")
@@ -34,19 +35,36 @@ def main():
         return x_train, x_test, y_train, y_test
     
     def plot_metrics(metrics_list):
-        if "Confusion Matrix" in metrics_list:
-            st.subheader("Confusion Matrix")
-            ConfusionMatrixDisplay.from_estimator(model, x_test, y_test, display_labels = class_names) #this is how you draw plots in the new scikit learn library.
-            st.pyplot()
-        if "ROC Curve" in metrics_list:
-            st.subheader("ROC Curve")
-            RocCurveDisplay.from_estimator(model, x_test, y_test, name = classifier)
-            st.pyplot()
-        if "Precision-Recall Curve" in metrics_list:
-            st.subheader("Precision-Recall Curve")
-            PrecisionRecallDisplay.from_estimator(model, x_test, y_test, name = classifier)
-            st.pyplot()
+        st.subheader("Plots")
+        n_metrics = len(metrics_list)
 
+        if n_metrics == 0:
+            return
+
+        # ONE figure, multiple subplots
+        fig, axes = plt.subplots(1, n_metrics, figsize=(6 * n_metrics, 8))
+
+        # If only one subplot exists, make axes iterable
+        if n_metrics == 1:
+            axes = [axes]
+
+        for ax, metric in zip(axes, metrics_list):
+            if metric == "Confusion Matrix":
+                ConfusionMatrixDisplay.from_estimator(model, x_test, y_test, display_labels=class_names, ax=ax)
+                ax.set_title("Confusion Matrix")
+
+            elif metric == "ROC Curve":
+                RocCurveDisplay.from_estimator(model, x_test, y_test, name=classifier, ax=ax)
+                ax.set_title("ROC Curve")
+
+            elif metric == "Precision-Recall Curve":
+                PrecisionRecallDisplay.from_estimator(model, x_test, y_test, name=classifier, ax=ax)
+                ax.set_title("Precision-Recall Curve")
+
+        plt.tight_layout()
+
+        # ONE Streamlit render call
+        st.pyplot(fig)
 
     
     df = load_data() #instantiate the function
@@ -54,7 +72,8 @@ def main():
     st.sidebar.write("If you wanna see the raw data, check here.")
     if st.sidebar.checkbox("Show raw data", value=False):
         st.subheader("Mushroom Data Set (Raw)")
-        st.write(df) # display the raw data
+        raw_data = pd.read_csv("mushrooms.csv")
+        st.write(raw_data) # display the raw data
     x_train, x_test, y_train, y_test = split(df)
     class_names = ["Edible", "Poisonous"]
     st.sidebar.subheader("Choose classifier model")
